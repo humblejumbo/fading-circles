@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Circles</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.5/paper-full.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.8/howler.js"></script>
+	<link rel="stylesheet" type="text/css" href="circles.css">
+	<script type="text/paperscript"  canvas="myCanvas">
+	
+
+var obj=
+[{	
+	key:'a',
+	src:'music/bubbles.mp3',
+	color:'orange'
+},
+
+{
+	key:'b',
+	src:'music/clay.mp3',
+	color:'purple'
+},
+
+{
+	key:'c',
+	src:'music/confetti.mp3',
+	color:'pink'
+},
+
+{
+	key:'d',
+	src:'music/corona.mp3',
+	color:'brown'
+},
+
+{
+	key:'e',
+	src:'music/dotted-spiral.mp3',
+	color:'yellow'
+},
+
+{
+	key:'f',
+	src:'music/flash-1.mp3',
+	color:'red'
+},
+
+{
+	key:'g',
+	src:'music/flash-2.mp3',
+	color:'green'
+},
+
+{
+	key:'h',
+	src:'music/flash-3.mp3',
+	color:'blue'
+},
+
+{
+	key:'i',
+	src:'music/glimmer.mp3',
+	color:"#29AB87"
+},
+
+{
+	key:'j',
+	src:'music/moon.mp3',
+	color:"#B57EDC"
+},
+
+{
+	key:'k',
+	src:'music/pinwheel.mp3',
+	color:'	#000080'
+},
+
+{
+	key:'l',
+	src:'music/piston-1.mp3',
+	color:'#1C2841'
+},
+
+{
+	key:'m',
+	src:'music/piston-2.mp3',
+	color:'	#F5F5DC'
+},
+
+{
+	key:'n',
+	src:'music/piston-3.mp3',
+	color:'	#BFFF00'
+},
+
+{
+	key:'o',
+	src:'music/prism-1.mp3',
+	color:'	#FA8072'
+},
+
+{
+	key:'p',
+	src:'music/prism-2.mp3',
+	color:'	#40E0D0'
+},
+
+{
+	key:'q',
+	src:'music/prism-3.mp3',
+	color:'#E0115F'
+},
+
+{
+	key:'r',
+	src:'music/splits.mp3',
+	color:'	#C0C0C0'
+},
+
+{
+	key:'s',
+	src:'music/squiggle.mp3',
+	color:'	#D2B48C'
+},
+
+{
+	key:'t',
+	src:'music/strike.mp3',
+	color:'	#483C32'
+},
+
+{
+	key:'u',
+	src:'music/suspension.mp3',
+	color:'#003153'
+},
+
+{
+	key:'v',
+	src:'music/timer.mp3',
+	color:'#FFE5B4'
+},
+
+{
+	key:'w',
+	src:'music/ufo.mp3',
+	color:''
+},
+
+{
+	key:'x',
+	src:'music/veil.mp3',
+	color:'#808000'
+},
+
+{
+	key:'y',
+	src:'music/wipe.mp3',
+	color:'#CCCCFF'
+},
+
+{
+	key:'z',
+	src:'music/zig-zag.mp3',
+	color:'	#00A86B'
+}
+];
+		
+var circles=[];
+
+function onKeyDown(event)
+{	
+	for(var i=0;i<obj.length;i++)
+	{
+		if(event.key==obj[i].key)
+		{
+
+			var sound = new Howl({
+	  		src:obj[i].src
+			});
+
+			sound.play();
+	
+			var position=Point.random() * view.size;
+			newcircle=new Path.Circle(position,300);
+			newcircle.fillColor=obj[i].color;
+			circles.push(newcircle);			
+		}
+
+		
+	}
+	
+}
+
+ function onFrame(event) {
+        	// animate the hue and the scale of circles
+        	console.log(circles.length);
+        	for (var i = 0; i < circles.length; i++) {
+        		circles[i].fillColor.hue +=1;
+        		circles[i].scale(.9);
+                // delete the dimished circles from the array
+                if(circles[i].area < 1){
+                  circles[i].remove();
+                  circles.splice(i, 1);
+                  //console.log(circles);
+                }
+        	}
+        }
+
+
+</script>
+</head>
+<body>
+	<canvas id="myCanvas" resize></canvas>
+</body>
+</html>
